@@ -105,9 +105,20 @@
     <script src="script.js"></script>
     <!-- Audio: background music + control -->
     <button id="audioToggle" class="audio-toggle" title="Reproducir / Pausar música" onclick="toggleAudio()">🔈</button>
+    <button id="youtubeToggle" class="audio-toggle youtube-toggle" title="Abrir canción en YouTube" onclick="openYouTube()">🎵</button>
     <audio id="bgm" loop preload="auto">
         <source id="bgmSource" src="assets/song.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
     </audio>
+
+    <!-- YouTube modal -->
+    <div id="ytModal" class="yt-modal" aria-hidden="true">
+        <div class="yt-modal-content">
+            <button class="yt-close" onclick="closeYouTube()">✖</button>
+            <div class="yt-wrapper">
+                <iframe id="ytFrame" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

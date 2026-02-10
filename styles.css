@@ -609,3 +609,41 @@ body {
 .audio-toggle:hover { transform: translateY(-4px); }
 
 .audio-toggle:active { transform: translateY(-2px); }
+
+/* YouTube toggle (small modifier) */
+.youtube-toggle { margin-right: 8px; }
+
+/* YouTube modal styles */
+.yt-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+.yt-modal[aria-hidden="false"] { display: flex; }
+.yt-modal-content {
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 12px;
+    max-width: 90%;
+    width: 720px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    position: relative;
+}
+.yt-close {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.yt-wrapper iframe { width: 100%; height: 405px; border-radius: 8px; }

@@ -173,6 +173,31 @@ document.addEventListener('click', function (e) {
     }
 });
 
+// YouTube modal: open and close (uses embed, no descarga)
+const YT_VIDEO_ID = '7PvYu-1iEbY'; // provided link
+function openYouTube() {
+    const modal = document.getElementById('ytModal');
+    const frame = document.getElementById('ytFrame');
+    if (!modal || !frame) return;
+    // set src with autoplay=1
+    frame.src = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&rel=0`;
+    modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeYouTube() {
+    const modal = document.getElementById('ytModal');
+    const frame = document.getElementById('ytFrame');
+    if (!modal || !frame) return;
+    // remove src to stop playback
+    frame.src = '';
+    modal.setAttribute('aria-hidden', 'true');
+}
+
+// Close modal on Esc
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeYouTube();
+});
+
 // Inicializar cuando carga la página
 window.addEventListener('DOMContentLoaded', () => {
     createStars();
