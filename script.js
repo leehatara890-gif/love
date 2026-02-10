@@ -201,5 +201,14 @@ document.addEventListener('keydown', (e) => {
 // Inicializar cuando carga la página
 window.addEventListener('DOMContentLoaded', () => {
     createStars();
+    // Si el sitio se sirve desde GitHub Pages, usar CDN para el mp3 (evita 404 en algunos casos)
+    try {
+        const src = document.getElementById('bgmSource');
+        if (src && location.hostname.includes('github.io')) {
+            src.src = 'https://cdn.jsdelivr.net/gh/leehatara890-gif/love@gh-pages/assets/song.mp3';
+            const audio = document.getElementById('bgm');
+            if (audio) audio.load();
+        }
+    } catch (e) {}
     showScreen('intro-screen');
 });
