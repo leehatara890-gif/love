@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Cupido Adivinador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars-container" id="starsContainer"></div>
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="container">
+        <!-- Pantalla Intro -->
+        <div id="intro-screen" class="screen active">
+            <div class="intro-content">
+                <div class="intro-hearts">💕 💗 💖</div>
+                
+                <h1 class="intro-title">Hola mi amor</h1>
+                
+                <p class="intro-text">
+                    He creado algo especial para ti...
+                </p>
+                
+                <p class="intro-text">
+                    Un pequeño juego lleno de amor y dedicación.
+                </p>
+                
+                <div class="intro-emoji">🎮✨💕</div>
+                
+                <button class="intro-button" onclick="goToHome()">Descubramos juntos</button>
+                
+                <div class="floating-hearts">
+                    <span>💕</span>
+                    <span>💗</span>
+                    <span>💖</span>
+                    <span>💞</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portada Principal -->
+        <div id="home-screen" class="screen">
+            <h1 class="title">El Cupido Adivinador</h1>
+            
+            <div class="rules">
+                <p>He escondido un número entre el 1 y el 14 en un corazón secreto.</p>
+                <p>¿Podrías adivinarlo?</p>
+                <p>Por cada intento te dedicaré una frase de amor. 💕</p>
+            </div>
+
+            <button class="start-button" onclick="startGame()">Comenzar el Juego</button>
+        </div>
+
+        <!-- Pantalla del Juego -->
+        <div id="game-screen" class="screen">
+            <h2 class="game-title">El Cupido Adivinador</h2>
+            
+            <div class="game-container">
+                <p class="game-subtitle">Adivina el número secreto (1-14)</p>
+                
+                <input 
+                    type="number" 
+                    id="numberInput" 
+                    class="number-input" 
+                    min="1" 
+                    max="14" 
+                    placeholder="Tu número aquí..."
+                    onkeypress="handleEnter(event)"
+                >
+                
+                <button class="submit-button" onclick="submitGuess()">Enviar</button>
+
+                <div id="message" class="message"></div>
+                
+                <div id="love-phrase" class="love-phrase"></div>
+
+                <div class="attempts-counter">
+                    <p>Intentos: <span id="attempts">0</span></p>
+                </div>
+
+                <button class="reset-button" onclick="resetGame()">Jugar de Nuevo</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Victoria -->
+        <div id="victory-screen" class="screen">
+            <div class="victory-content">
+                <h2 class="victory-title">🎉 ¡Lo Hiciste! 🎉</h2>
+                
+                <p class="victory-message">
+                    ¡Felicidades! Has encontrado el número secreto del amor en <span id="finalAttempts">0</span> intentos.
+                </p>
+
+                <p class="victory-special">
+                    Yupiiiiiii, FELICES 8 MESES MI AMOR Y FELIZ 14 DE FEBRERO ❤️
+                </p>
+
+                <button class="restart-button" onclick="goHome()">Volver a Jugar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    background: radial-gradient(circle at center, #ffb3d9 0%, #fff0f6 50%, #ffe0ec 100%);
+}
+
+/* Estrellas animadas */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite ease-in-out;
+}
+
+/* Contenedor de corazones flotantes */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 2rem;
+    animation: float-up 4s infinite ease-in;
+    opacity: 0.6;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+    }
+}
+
+.star.small {
+    width: 2px;
+    height: 2px;
+}
+
+.star.medium {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.star.large {
+    width: 6px;
+    height: 6px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+
+/* Contenedor principal */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ===== PANTALLA INTRO ===== */
+.intro-content {
+    text-align: center;
+    z-index: 10;
+    animation: fadeInScale 1s ease-out;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.intro-hearts {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    animation: bounce 1s ease-in-out infinite;
+    display: inline-block;
+}
+
+.intro-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 2rem;
+    font-family: 'Fredoka One', sans-serif;
+    text-shadow: 
+        3px 3px 6px rgba(255, 105, 180, 0.6),
+        6px 6px 12px rgba(255, 182, 193, 0.4);
+    letter-spacing: 2px;
+    animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.intro-text {
+    font-size: 1.4rem;
+    color: white;
+    margin: 1rem 0;
+    max-width: 500px;
+    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.4);
+    font-weight: 500;
+    line-height: 1.6;
+    animation: fadeIn 1s ease-out 0.3s both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.intro-emoji {
+    font-size: 2.5rem;
+    margin: 2rem 0;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-10deg); }
+}
+
+.intro-button {
+    padding: 1.2rem 3.5rem;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, #ff69b4 0%, #ff85c1 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.5);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 2rem;
+    animation: fadeIn 1s ease-out 0.6s both;
+}
+
+.intro-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.7);
+}
+
+.intro-button:active {
+    transform: translateY(-2px);
+}
+
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.floating-hearts span {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    animation: float-up 4s infinite ease-in;
+}
+
+.floating-hearts span:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 4s;
+}
+
+.floating-hearts span:nth-child(2) {
+    left: 30%;
+    animation-delay: 0.5s;
+    animation-duration: 4.5s;
+}
+
+.floating-hearts span:nth-child(3) {
+    left: 60%;
+    animation-delay: 1s;
+    animation-duration: 5s;
+}
+
+.floating-hearts span:nth-child(4) {
+    left: 80%;
+    animation-delay: 1.5s;
+    animation-duration: 4.5s;
+}
+
+/* ===== PORTADA PRINCIPAL ===== */
+.title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 
+        2px 2px 4px rgba(255, 105, 180, 0.6),
+        4px 4px 8px rgba(255, 182, 193, 0.4);
+    letter-spacing: 2px;
+    font-family: 'Fredoka One', sans-serif;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.rules {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    padding: 0 2rem;
+}
+
+.rules p {
+    font-size: 1.1rem;
+    color: white;
+    margin: 0.8rem 0;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.start-button {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #ff69b4 0%, #ff85c1 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 8px 15px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 105, 180, 0.6);
+}
+
+.start-button:active {
+    transform: translateY(-1px);
+}
+
+/* ===== PANTALLA DEL JUEGO ===== */
+.game-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-shadow: 
+        2px 2px 4px rgba(255, 105, 180, 0.5),
+        4px 4px 8px rgba(255, 182, 193, 0.3);
+    font-family: 'Fredoka One', sans-serif;
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 3rem;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(255, 182, 193, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.game-subtitle {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
+}
+
+.number-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: 3px solid rgba(255, 105, 180, 0.5);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff69b4;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.number-input:focus {
+    outline: none;
+    border-color: #ff69b4;
+    background: white;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+}
+
+.number-input::placeholder {
+    color: rgba(255, 105, 180, 0.5);
+}
+
+/* Remover spinners de número */
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.number-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #ff69b4 0%, #ff85c1 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(255, 105, 180, 0.4);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+.message {
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff69b4;
+    padding: 1.2rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 105, 180, 0.3);
+}
+
+.love-phrase {
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.8) 0%, rgba(255, 192, 203, 0.6) 100%);
+    color: white;
+    padding: 1.2rem;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+.attempts-counter {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.attempts-counter p {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
+}
+
+.attempts-counter span {
+    color: #ffd700;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.reset-button {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff69b4;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.reset-button:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
+}
+
+/* ===== PANTALLA DE VICTORIA ===== */
+.victory-content {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 3rem;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.victory-title {
+    font-size: 3rem;
+    color: #ff69b4;
+    margin-bottom: 2rem;
+    font-family: 'Fredoka One', sans-serif;
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.victory-message {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
+    line-height: 1.8;
+}
+
+.victory-special {
+    color: #ffd700;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.4);
+    line-height: 1.8;
+}
+
+.restart-button {
+    padding: 1rem 3rem;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #ff69b4 0%, #ff85c1 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 8px 15px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.restart-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 105, 180, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .rules p {
+        font-size: 1rem;
+    }
+
+    .game-title {
+        font-size: 2rem;
+    }
+
+    .game-container {
+        padding: 2rem;
+    }
+
+    .victory-title {
+        font-size: 2rem;
+    }
+
+    .victory-message,
+    .victory-special {
+        font-size: 1.1rem;
+    }
+}
