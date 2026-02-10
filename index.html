@@ -103,5 +103,11 @@
     </div>
 
     <script src="script.js"></script>
+    <!-- Audio: background music + control -->
+    <button id="audioToggle" class="audio-toggle" title="Reproducir / Pausar música" onclick="toggleAudio()">🔈</button>
+    <audio id="bgm" loop preload="auto">
+        <source id="bgmSource" src="assets/song.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
 </body>
 </html>

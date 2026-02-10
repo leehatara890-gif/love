@@ -68,6 +68,15 @@ function startGame() {
     document.getElementById('attempts').textContent = '0';
     showScreen('game-screen');
     document.getElementById('numberInput').focus();
+    // Intentar reproducir música al iniciar (puede ser bloqueado por el navegador)
+    const audio = document.getElementById('bgm');
+    if (audio) {
+        audio.play().then(() => {
+            document.getElementById('audioToggle').textContent = '🔊';
+        }).catch(() => {
+            // autoplay bloqueado; dejar en estado pausado
+        });
+    }
 }
 
 // Enviar adivinanza
@@ -126,6 +135,43 @@ function resetGame() {
 function goHome() {
     showScreen('home-screen');
 }
+
+// Audio controls
+function toggleAudio() {
+    const audio = document.getElementById('bgm');
+    const btn = document.getElementById('audioToggle');
+    if (!audio) return;
+    if (audio.paused) {
+        audio.play().then(() => {
+            btn.textContent = '🔊';
+        }).catch(() => {
+            // reproducción fallida
+        });
+    } else {
+        audio.pause();
+        btn.textContent = '🔈';
+    }
+}
+
+// Permite cargar una URL externa preguntando al usuario
+function setAudioUrl(url) {
+    const src = document.getElementById('bgmSource');
+    const audio = document.getElementById('bgm');
+    if (!src || !audio) return;
+    src.src = url;
+    audio.load();
+    audio.play().then(() => {
+        document.getElementById('audioToggle').textContent = '🔊';
+    }).catch(() => {});
+}
+
+// Atajo: si el usuario mantiene Shift y hace click en el botón, pregunta la URL
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.id === 'audioToggle' && e.shiftKey) {
+        const url = prompt('Pega la URL directa de un archivo MP3 (ej. https://.../song.mp3)');
+        if (url) setAudioUrl(url);
+    }
+});
 
 // Inicializar cuando carga la página
 window.addEventListener('DOMContentLoaded', () => {
